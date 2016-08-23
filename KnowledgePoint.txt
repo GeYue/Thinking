@@ -1,3 +1,11 @@
 1. 2016-08-22 Block type: NSConcreteGlobalBlock, NSConcreteStackBlock, NSConcreteMallocBlock.
 block的分析，在MRC／ARC下的不同表现。
 Evernote笔记，关键字“深入浅出Block”
+
+2. 2016-08-23 重新读“Objctive-C Runtime"相关
+Class & MetaClass的含义，obj_msgSend/obj_msgSendSuper的具体场景；
+EverNote笔记，关键字“Objective-C Runtime 1小时”， “刨根问底Objective-C Runtime”
+理解isMemberOfClass ／ isKindOfClass 在runtime中的具体实现
+理解（Class）class方法在root class （NSObject）中的实现方式。
+多次阅读，要以理解为重。
+
