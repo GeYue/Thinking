@@ -9,3 +9,28 @@ EverNote笔记，关键字“Objective-C Runtime 1小时”， “刨根问底Ob
 理解（Class）class方法在root class （NSObject）中的实现方式。
 多次阅读，要以理解为重。
 
+3. 2016-08-24 "Objective-C Runtime" 相关；
+在Evernote笔记“刨根问底Objective-C Runtime”中，part1中重点用红色标出；
+
+part2 重点：MetaClass（isa），objc_msgSend向isMemeberOfClass ／ isKindOfClass 发送消息，
+objc_msgSend(receiver, SEL, ....)具体对应于 objc_msgSend( objc_getClass("NSObject"), sel_registerName("class") );
+实际上对应的就是访问NSObject的class方法，+ (Class) class();
+注意NSObject同时具有 - (Class) class(); + (Class) class();两种方法，分部对应实例方法和Class方法；
+在Part2中是Class方法；
+
+isMemeberOfClass直接用isa与传入的 + (Class) class()来比较；
+isKindOfClass则是isa逐级向上访问自己superclass，只有在任意一级比较成功，则返回成功；
+
+此处的isa都对应Class的isa，即MegaClass；
+
+而平时使用的实例变量，isa都指向自己属于的Class； 这是实例变量与［Class class］在isa中的区别。
+
+Part3 重点：SEL ／ IMP ／ objc_msgSend如何寻找到IMP
+SEL只关注方法的名称，不同参数类型无法进行区分；方法名称相同，则SEL就是相同的。
+IMP本质是函数指针;
+不同的Class中执行Selector的时候，是根据SEL来找到对应的IMP，并调用执行；
+
+IMP的查找执行顺序：a. 在cache方法列表中找；b.在方法列表中寻找；c.继续在Super方法列表中查找；
+d.以上未果，则进入 “动态消息解析及消息转发机制”（明天继续复习理解）；
+
+Category方法的插入是“前趋式”，也就是会在方法列表中插在Class本身的方法列表之前；从而优先被找到执行，不再向后查找；
