@@ -34,3 +34,15 @@ IMP的查找执行顺序：a. 在cache方法列表中找；b.在方法列表中�
 d.以上未果，则进入 “动态消息解析及消息转发机制”（明天继续复习理解）；
 
 Category方法的插入是“前趋式”，也就是会在方法列表中插在Class本身的方法列表之前；从而优先被找到执行，不再向后查找；
+
+4. 2016-08-25 "Objectiv-C Runtime"相关：
+在objc_msgSend无法在IMP中找到响应的SEL后，程序仍然有机会进行“消息的动态解析和转发”
+规则如下：
+(1). 通过resolveInstanceMethod来决定是否添加动态方法，添加动态方法（class_addMethod）并返回YES，则消息用新动态方法处理；
+如何返回NO，则进入下一步检查。
+(2). 进入forwardingTargetForSelector，用于指定备选对象来响应该消息，不能指定为nil； 如果返回某个对象，则用该对象来响应该消息；
+否则，返回nil，继续进行后续检查。
+(3). 通过methodSignatureForSelector方法来签名，如果返回nil，则消息无法处理，检查结束； 
+如果返回methodSignature，就进入下一步。
+(4). 最终调用forwardInvoction方法，可以在anInvocation对象中，做各种处理（比如替换TargetObject，或者沿用TargetObject，但是替换为调用其他SEL等等）。方法调用成功则结束，否则程序Crash退出。
+
