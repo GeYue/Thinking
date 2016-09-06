@@ -46,3 +46,18 @@ Category方法的插入是“前趋式”，也就是会在方法列表中插在
 如果返回methodSignature，就进入下一步。
 (4). 最终调用forwardInvoction方法，可以在anInvocation对象中，做各种处理（比如替换TargetObject，或者沿用TargetObject，但是替换为调用其他SEL等等）。方法调用成功则结束，否则程序Crash退出。
 
+5. 2016-09-06 关于UICollectionView的学习
+UICollectionView与UITableView有很多相类似之处，通过Delegate和DataSource进行基础的设置；
+包括SectionNumber，CellAtIndex；
+也有类似与UITableView中header／footer中对SupplymentaryElements的Section头尾的设定；
+
+比较关键的是UICollectionViewLayout；在UICollectionView初始化时，进行Layout的指定；
+然后在Layout的方法中，对ContentSize，ItemsInRect，NumberOfItemsInSection等方法中对每一个layout item的属性进行指定；
+参考工程CircleLayout中，环形CollectionView的构建过程；
+
+P.S. 在FFCalendar工程中，也进一步涉及到NSDate／NSCalendar／NSDateComponents等转换对应关系；
+接下来参看“iOS时间那些事儿”系列，搞明白NSData系列在FFCalendar中，日期的计算方式；
+
+而在FFCalendar中，利用多层UIView/UICollectionView/UICollectionViewCell 都implement统一protocol的方式来做的对cell item的点击，
+反映到最上层UIView的变化。值得多分析学习。
+
