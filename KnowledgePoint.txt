@@ -61,3 +61,14 @@ P.S. 在FFCalendar工程中，也进一步涉及到NSDate／NSCalendar／NSDateC
 而在FFCalendar中，利用多层UIView/UICollectionView/UICollectionViewCell 都implement统一protocol的方式来做的对cell item的点击，
 反映到最上层UIView的变化。值得多分析学习。
 
+6. 2016-09-13 "UIPopoverPresentationController" in iOS 9.
+在iOS8以后，UIPopoverController已经被废弃。目前应用UIPopoverPresentationController作为替代；
+同时，新的PresenttationController中，同样的代码，对iPhone与iPad会产生不一样的显示效果。
+在iPhone App中，出现的就是类似Sheet View的样式。而在iPad App中，出现以前Popover View的模样；
+以前需要分别根据App的运行环境，编写不同代码来分别显示，现在可以统一用一套代码来实现。
+
+PresentationController的显示方式与先前也有不一样的地方；
+需要在当前View中先presentViewController推出popoverView，再对popoverView的popoverPresentationController进行设定；
+详情参加笔记“How to create popover in iOS 9” 及其git代码实例；
+
+[UIApplication sharedApplication].keyWindow.rootViewController来获取当前的viewController？
